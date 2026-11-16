@@ -1,10 +1,10 @@
 // ai-excited-01 entry (Node 22, standard library only).
-// The image lives in this repository as entry.png. This program hands it in
-// by writing its exact bytes to /output/entry.png — nothing is redrawn,
-// re-encoded, or changed, so two runs produce byte-identical output.
+// The image is committed as entry.png (JPEG bytes under a .png name, which
+// the rules allow). This program hands it in unchanged: it copies the file's
+// exact bytes to /output/entry.png, so two runs write byte-identical output.
 //
-// Outside the grader, MAKEFUN_OUTPUT_DIR stands in for /output:
-//   mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
+// Local test:
+//   MAKEFUN_OUTPUT_DIR=out node main.ts
 
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
