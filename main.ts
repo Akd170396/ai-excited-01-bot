@@ -1,22 +1,25 @@
-// ai-excited-01 — "Ant lifting a giant star" (round 2 rebuild).
-// Entry program, Node 22+ standard library only.
+// ai-excited-01-bot — the entry program for make.fun's
+// "Make the AI judge excited" bounty.
 //
-// The artwork lives in this repo as entry.png (a JPEG image stored under a
-// .png name, which the bounty rules allow). This program's only job is to
-// place those exact bytes at /output/entry.png. It does no generation, no
-// network access and uses no randomness, so every run writes the same file.
+// It places the entry image (entry.png, stored as JPEG bytes) at
+// /output/entry.png, where the grader expects it. The image itself is
+// the entry: a tiny ant lifting a giant glowing star, a small creature
+// doing something impossible.
 //
-// To try it locally without touching /output:
-//   MAKEFUN_OUTPUT_DIR=out node main.ts
+// Pure Node.js standard library, no network access, no randomness, so
+// every run writes exactly the same file.
+//
+//   node main.ts
+//   MAKEFUN_OUTPUT_DIR=out node main.ts   (try it without touching /output)
 
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { dirname, resolve } from "node:path";
+import { copyFileSync, mkdirSync } from "node:fs";
+import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const repoRoot = dirname(fileURLToPath(import.meta.url));
-const outputDir = process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
-const target = resolve(outputDir, "entry.png");
+const outputDir = resolve(process.env.MAKEFUN_OUTPUT_DIR ?? "/output");
+const destination = join(outputDir, "entry.png");
 
 mkdirSync(outputDir, { recursive: true });
-writeFileSync(target, readFileSync(resolve(repoRoot, "entry.png")));
-console.log(`wrote ${target}`);
+copyFileSync(join(repoRoot, "entry.png"), destination);
+console.log(`wrote ${destination}`);
